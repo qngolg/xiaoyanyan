@@ -13,7 +13,7 @@ import reactor.core.publisher.Mono;
 public class UserController {
     private final UserAppService userAppService;
 
-    @GetMapping(value = "${id}")
+    @GetMapping(value = "/{id}")
     public Mono<UserDto> findUsers(@PathVariable("id") Long id) {
         return Mono.justOrEmpty(userAppService.findById(id)).map(UserMapper.MAPPER::toDto);
     }

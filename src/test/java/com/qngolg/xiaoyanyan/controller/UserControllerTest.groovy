@@ -3,6 +3,7 @@ package com.qngolg.xiaoyanyan.controller
 import com.qngolg.xiaoyanyan.repository.po.UserPo
 import org.springframework.beans.factory.annotation.Autowired
 import org.springframework.boot.test.context.SpringBootTest
+import org.springframework.test.web.reactive.server.WebTestClient
 import org.springframework.test.web.servlet.MockMvc
 import org.springframework.test.web.servlet.result.MockMvcResultMatchers
 import spock.lang.Specification
@@ -11,13 +12,12 @@ import javax.persistence.EntityManager
 import java.time.LocalDate
 
 import static org.springframework.test.web.servlet.request.MockMvcRequestBuilders.get
-import static org.springframework.test.web.servlet.request.MockMvcRequestBuilders.post
 import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.jsonPath
 
 @SpringBootTest
 class UserControllerTest extends Specification {
     @Autowired
-    MockMvc mockMvc
+    WebTestClient webTestClient
 
     @Autowired
     EntityManager entityManager
@@ -28,9 +28,9 @@ class UserControllerTest extends Specification {
         entityManager.persist(userPo)
 
         when:
-        def result = mockMvc.perform(get("/user/2"))
+        def result = webTestClient.get().uri("/user/2").exchange()
 
         then:
-        result.andExpect(jsonPath('$.name', MockMvcResultMatchers.equals('peiqi')))
+        result.expectStatus().isOk()
     }
 }

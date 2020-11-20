@@ -2,25 +2,24 @@ package com.qngolg.xiaoyanyan.controller
 
 import com.qngolg.xiaoyanyan.repository.po.UserPo
 import org.springframework.beans.factory.annotation.Autowired
+import org.springframework.boot.test.autoconfigure.orm.jpa.TestEntityManager
 import org.springframework.boot.test.context.SpringBootTest
+import org.springframework.context.annotation.Profile
 import org.springframework.test.web.reactive.server.WebTestClient
-import org.springframework.test.web.servlet.MockMvc
-import org.springframework.test.web.servlet.result.MockMvcResultMatchers
 import spock.lang.Specification
 
 import javax.persistence.EntityManager
 import java.time.LocalDate
 
-import static org.springframework.test.web.servlet.request.MockMvcRequestBuilders.get
-import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.jsonPath
 
+@Profile("test")
 @SpringBootTest
 class UserControllerTest extends Specification {
     @Autowired
     WebTestClient webTestClient
 
     @Autowired
-    EntityManager entityManager
+    TestEntityManager entityManager
 
     void "should get a user"(){
         given:

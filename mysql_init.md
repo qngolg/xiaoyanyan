@@ -18,3 +18,7 @@ mysql -uroot
 mysql_secure_installation
 # 根据提示设置密码
 ```
++ 密码登陆mysql
+```shell script
+mysql -uroot -p12345678
+```
